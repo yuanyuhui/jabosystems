@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.jabosystems.dao.IEmployeeDao">
+
+	<select id="queryByenamewithepwd" resultMap="queryemployee">
+		SELECT * FROM
+		`employee` WHERE `eid`=#{Employee.eid} AND `epwd`=#{Employee.epwd}
+	</select>
+
+	<select id="queryList" resultMap="queryemployee">
+		SELECT * FROM `employee`
+	</select>
+
+	<select id="queryByeid" resultMap="queryemployee">
+		SELECT * FROM `employee` WHERE `eid` =#{Employee.eid}
+	</select>
+	
+	<resultMap type="employee" id="queryemployee">
+		<result column="eid" property="eid" />
+		<result column="ename" property="ename" />
+		<result column="epwd" property="epwd" />
+		<result column="position_id" property="position_id" />
+		<result column="department_id" property="department_id" />
+		<result column="status" property="status" />
+		<collection property="Position" column="eid" select="queryposition" />
+		<collection property="Department" column="eid" select="querydepartment" />
+	</resultMap>
+	<select id="queryposition" resultType="position">
+		SELECT * FROM `position`
+		WHERE eid=#{0}
+	</select>
+	<select id="querydepartment" resultType="department">
+		SELECT * FROM
+		`department` WHERE eid=#{0}
+	</select>
+</mapper>

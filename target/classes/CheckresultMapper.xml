@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ks.jabosystems.dao.ICheckresultDao">
+	<select id="queryByvc_id" resultType="checkresult">
+		SELECT * FROM `checkresult`
+		WHERE `vc_id`=#{0}
+	</select>
+	<insert id="insertCheckresult">
+		INSERT INTO
+		`checkresult`(`vc_id`,`create_eid`,`next_eid`,`time`,`status`,`check_comment`)
+		VALUES(#{Checkresult.vc_id},#{Checkresult.create_eid},#{Checkresult.next_eid},#{Checkresult.time},#{Checkresult.status},#{Checkresult.check_comment});
+		DELETE FROM `checkresult` WHERE `cr_id` =#{Checkresult.cr_id};
+	</insert>
+</mapper>
